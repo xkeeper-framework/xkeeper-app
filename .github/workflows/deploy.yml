@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn --prefer-offline
@@ -47,10 +47,3 @@ jobs:
           vercel-args: ${{ github.ref_name == 'main' && '--prod -A ../vercel.json' || '-A ../vercel.json' }}
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
           working-directory: ./dist
-
-      - name: Comment PR
-        if: github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Preview: ${{ steps.vercel-deployment.outputs.preview-url }}
